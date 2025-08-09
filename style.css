@@ -10,6 +10,16 @@
   --scrim-bottom: rgba(0,0,0,.65);
 }
 
+/* --- ensure the page can scroll on Pages --- */
+html, body {
+  min-height: 100%;
+  height: auto;           /* don't lock to exactly 100% */
+  overflow-y: auto;       /* allow vertical scroll */
+}
+
+/* give content some bottom room so fixed elements don't trap last section */
+main { padding-bottom: 48px; }
+
 * { box-sizing: border-box; }
 html, body { height: 100%; }
 html { scroll-behavior: smooth; }
