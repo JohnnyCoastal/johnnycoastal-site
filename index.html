@@ -2,64 +2,63 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Johnny Coastal</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <!-- Background video -->
+  <video id="bg" class="bg"
+         src="assets/beach.mp4?v=5"
+         playsinline muted autoplay loop preload="auto"></video>
 
-<!-- replace your current <video> with this -->
-<video id="bg" class="bg"
-       src="assets/beach.mp4?v=3"
-       playsinline muted autoplay loop preload="auto"></video>
+  <!-- Readability layers -->
+  <div class="overlay"></div>
+  <div class="tint"></div>
 
-<!-- keep your existing <script src="script.js"></script> at the bottom,
-     and add this 6-line inline helper right above it (or merge into script.js) -->
-<script>
-  (function () {
-    const v = document.getElementById('bg');
-    if (!v) return;
-    v.muted = true; v.setAttribute('playsinline','');
-    const go = () => v.play().catch(()=>{});
-    (document.readyState === 'complete') ? go() : window.addEventListener('load', go);
-    window.addEventListener('pointerdown', go, { once: true });
-  })();
-</script>
-
-
-  <!-- Subtle overlay for text readability -->
-  <div class="scrim"></div>
-
-  <!-- Compact brand badge (top-left) -->
-  <a class="brand-badge" href="/" aria-label="Johnny Coastal home">
-    <img src="assets/logo-round.png" alt="" class="brand-icon" />
+  <!-- Brand badge (top-left) -->
+  <a class="brand-badge" href="#" aria-label="Johnny Coastal">
+    <img class="brand-icon" src="assets/logo-round.png" alt="" />
     <span class="brand-text">Johnny Coastal</span>
   </a>
 
   <main class="content">
-    <header class="hero">
-      <h1>Johnny Coastal</h1>
+    <section class="hero">
+      <h1 class="brand">Johnny Coastal</h1>
       <p class="tagline">Coastal Vibes. Good Music. Good Times. 💀🌊</p>
-    </header>
+    </section>
 
-    <section class="block">
+    <section>
       <h2>Music</h2>
       <p>New drops, live mixes, and oceanside soundscapes.</p>
-      <div class="buttons">
-        <a class="btn" href="https://youtube.com" target="_blank" rel="noopener">YouTube</a>
-        <a class="btn" href="https://open.spotify.com" target="_blank" rel="noopener">Spotify</a>
-        <a class="btn" href="https://music.apple.com" target="_blank" rel="noopener">Apple Music</a>
-        <a class="btn" href="https://www.iheart.com/" target="_blank" rel="noopener">iHeartRadio</a>
-      </div>
+      <nav class="buttons">
+        <a class="btn" target="_blank" href="https://youtube.com/@johnnycoastalstudios">YouTube</a>
+        <a class="btn" target="_blank" href="https://open.spotify.com/search/johnny%20coastal">Spotify</a>
+        <a class="btn" target="_blank" href="https://music.apple.com/us/artist/johnny-coastal/1825993417">Apple Music</a>
+        <a class="btn" target="_blank" href="https://www.iheart.com/artist/johnny-coastal-47410695/">iHeartRadio</a>
+      </nav>
+    </section>
+
+    <section>
+      <h2>Merch</h2>
+      <p>Tees, hoodies, and limited drops.</p>
+      <a class="btn" href="#">Shop (coming soon)</a>
+    </section>
+
+    <section>
+      <h2>About</h2>
+      <p>Johnny Coastal blends cinematic ocean energy, tropical aesthetics, and bass-heavy atmospheres.</p>
+      <a class="btn" href="mailto:coastal@johnnycoastal.com">Contact</a>
     </section>
 
     <div class="spacer"></div>
   </main>
 
-  <!-- Round logo bottom-right -->
-  <a class="corner-logo" href="/" aria-label="Johnny Coastal">
+  <!-- Corner logo -->
+  <a class="corner-logo" href="#" aria-label="Johnny Coastal">
     <img src="assets/logo-round.png" alt="" />
   </a>
 
+  <script src="script.js"></script>
 </body>
 </html>
