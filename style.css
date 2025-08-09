@@ -4,227 +4,87 @@
   --fg: #e9f3f7;
   --fg-dim: #b9ced6;
   --chip-bg: rgba(10,18,24,.55);
-  --chip-stroke: rgba(255,255,255,.06);
+  --chip-stroke: rgba(255,255,255,.10);
   --chip-blur: 10px;
-  --scrim-top: rgba(0,0,0,.45);
-  --scrim-bottom: rgba(0,0,0,.65);
 }
 
-/* --- Force scroll + correct stacking order --- */
-html { height: auto !important; min-height: 100% !important; }
-body {
-  height: auto !important;
-  min-height: 100vh !important;
-  overflow-y: auto !important;
-}
-
-/* Fullscreen video stays behind everything */
-.bg{
-  position: fixed !important;
-  inset: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: cover !important;
-  z-index: 0 !important;
+/* === SCROLL + LAYERS =================================================== */
+html { height:auto !important; min-height:100% !important; }
+body { height:auto !important; min-height:100vh !important; overflow-y:auto !important;
+  margin:0; color:var(--fg);
+  font: 400 16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
   background:#000;
 }
 
-/* Readability layers sit above video */
-.overlay, .tint{
-  position: fixed !important;
-  inset: 0 !important;
-  z-index: 1 !important;
-}
-
-/* Content above overlays */
-main{ position: relative !important; z-index: 3 !important; padding-bottom: 64px; }
-
-/* Header & corner watermark above everything */
-.site-header{ z-index: 6 !important; }
-.watermark{ z-index: 6 !important; }
-
-/* --- FORCE SCROLL & LAYOUT --- */
-html { height: auto !important; min-height: 100% !important; }
-body {
-  height: auto !important;
-  min-height: 100vh !important;
-  overflow-y: auto !important;
-}
-
-/* Give bottom room so the watermark doesn't trap the last section */
-main { position: relative; z-index: 3; padding-bottom: 64px; }
-
-/* --- TRUE FULLSCREEN BACKGROUND VIDEO --- */
+/* Fullscreen background video (fixed) */
 .bg{
-  position: fixed !important;
-  inset: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: cover !important;
-  z-index: 0 !important;       /* sits behind content */
-  background: #000;             /* no white flashes */
+  position:fixed !important; inset:0 !important;
+  width:100% !important; height:100% !important; object-fit:cover !important;
+  z-index:0 !important; background:#000;
 }
 
-/* Readability layers stay fixed over the video */
-.overlay, .tint{
-  position: fixed !important;
-  inset: 0 !important;
-  z-index: 1 !important;
+/* Readability layers over video */
+.overlay,.tint{ position:fixed !important; inset:0 !important; z-index:1 !important; pointer-events:none; }
+.overlay{
+  background:
+    radial-gradient(120% 90% at 50% 8%, rgba(0,0,0,.10) 0%, rgba(0,0,0,.10) 40%, rgba(0,0,0,.50) 100%),
+    linear-gradient(to bottom, rgba(0,0,0,.10), rgba(0,0,0,.55) 60%, rgba(0,0,0,.78));
 }
 
-/* --- force page to scroll on GitHub Pages --- */
-html { height: auto !important; min-height: 100% !important; }
-body {
-  height: auto !important;
-  min-height: 100vh !important;
-  overflow-y: auto !important;
-}
-main { padding-bottom: 56px; } /* room for fixed watermark */
+/* Content sits above overlays */
+main.content{ position:relative !important; z-index:3 !important; padding-bottom:64px; }
 
-/* --- ensure the page can scroll on Pages --- */
-html, body {
-  min-height: 100%;
-  height: auto;           /* don't lock to exactly 100% */
-  overflow-y: auto;       /* allow vertical scroll */
-}
-
-/* give content some bottom room so fixed elements don't trap last section */
-main { padding-bottom: 48px; }
-
-* { box-sizing: border-box; }
-html, body { height: 100%; }
-html { scroll-behavior: smooth; }
-body {
-  margin: 0;
-  color: var(--fg);
-  font: 400 16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-  background: #000;
-}
-
-/* ALWAYS visible (no opacity gating) */
-.video-bg {
-  position: fixed;
-  inset: 0;
-  z-index: -1;         /* behind content */
-  overflow: hidden;
-}
-
-.video-bg video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;   /* fills screen without squishing */
-  filter: brightness(0.7) saturate(1.15); /* optional color tweak */
-  transform: translateZ(0);               /* helps some GPUs */
-}
-
-.scrim{
-  position: fixed; inset: 0; z-index: -1;
-  background: linear-gradient(to bottom, var(--scrim-top) 10%, var(--scrim-bottom) 85%);
-}
-
-/* Brand badge */
+/* Brand badge (top-left) */
 .brand-badge{
-  position: fixed; top: 18px; left: 18px;
+  position: fixed; top: 18px; left: 18px; z-index:6;
   display: inline-flex; align-items: center; gap: 10px;
-  padding: 10px 14px;
-  color: var(--fg); text-decoration: none;
-  backdrop-filter: blur(var(--chip-blur));
-  background: var(--chip-bg);
-  border: 1px solid var(--chip-stroke);
-  border-radius: 14px;
-  box-shadow: 0 6px 28px rgba(0,0,0,.35);
+  padding: 10px 14px; color: var(--fg); text-decoration: none;
+  backdrop-filter: blur(var(--chip-blur)); -webkit-backdrop-filter: blur(var(--chip-blur));
+  background: var(--chip-bg); border: 1px solid var(--chip-stroke);
+  border-radius: 14px; box-shadow: 0 6px 28px rgba(0,0,0,.35);
 }
 .brand-icon{ width:24px; height:24px; border-radius:999px; display:block; }
 .brand-text{ font-weight:600; letter-spacing:.2px; }
 
-/* Content */
-.content{
-  position: relative;
-  padding: calc(120px + var(--page-pad)) var(--page-pad) var(--page-pad);
-  max-width: var(--max-w);
-  margin: 0 auto;
+/* Content layout */
+.content{ padding: calc(120px + var(--page-pad)) var(--page-pad) var(--page-pad);
+  max-width: var(--max-w); margin: 0 auto; }
+.hero .brand{
+  font-size: clamp(40px, 7vw, 88px);
+  margin: 0 0 10px; line-height: 1.02;
+  text-shadow: 0 8px 36px rgba(0,0,0,.75), 0 0 2px rgba(0,0,0,.55);
 }
-.hero h1{
-  font-size: clamp(40px, 7vw, 80px);
-  margin: 0 0 10px;
-  line-height: 1.02;
-  text-shadow: 0 8px 36px rgba(0,0,0,.6);
-}
-.tagline{ margin: 0 0 40px; color: var(--fg-dim); }
+.tagline{ margin: 0 0 28px; color: var(--fg-dim);
+  text-shadow: 0 4px 18px rgba(0,0,0,.7), 0 0 2px rgba(0,0,0,.55); }
 
-.block{
-  margin-top: 48px;
-  padding: 24px;
-  border-radius: 16px;
-  background: rgba(0,0,0,.25);
-  border: 1px solid rgba(255,255,255,.06);
-  backdrop-filter: blur(8px);
-  box-shadow: 0 30px 80px rgba(0,0,0,.35);
-}
-.block h2{ margin: 0 0 8px; font-size: clamp(22px, 3vw, 30px); }
-.block p{ margin: 0 0 16px; color: var(--fg-dim); }
+/* Sections (no huge frosted boxes) */
+section{ margin: 36px 0; }
+h2{ margin: 0 0 10px; font-size: clamp(22px, 3vw, 30px); }
+p{ margin: 0 0 16px; color: var(--fg-dim); }
 
+/* Buttons – minimal glass */
 .buttons{ display:flex; flex-wrap:wrap; gap:12px; }
 .btn{
   display:inline-flex; align-items:center; justify-content:center;
-  padding: 10px 14px; border-radius: 12px;
-  color: var(--fg); text-decoration: none;
-  background: rgba(10,18,24,.45);
-  border: 1px solid rgba(255,255,255,.08);
-  transition: transform .12s ease, background .2s ease, border-color .2s ease;
+  padding: 10px 14px; border-radius: 12px; color: var(--fg); text-decoration: none;
+  background: rgba(0,0,0,.28); border: 1px solid rgba(255,255,255,.18);
+  backdrop-filter: blur(2px); transition: transform .12s ease, background .2s ease, border-color .2s ease;
 }
-.btn:hover{ transform: translateY(-1px); background: rgba(10,18,24,.6); border-color: rgba(255,255,255,.18); }
+.btn:hover{ transform: translateY(-1px); background: rgba(0,0,0,.36); border-color: rgba(255,255,255,.3); }
 
 /* Corner logo */
 .corner-logo{
-  position: fixed; right: 18px; bottom: 18px;
-  width: 46px; height: 46px; border-radius: 999px;
-  background: rgba(10,18,24,.6);
-  border: 1px solid rgba(255,255,255,.08);
-  display:grid; place-items:center;
-  backdrop-filter: blur(8px);
-  box-shadow: 0 10px 30px rgba(0,0,0,.35);
+  position: fixed; right: 18px; bottom: 18px; z-index:6;
+  width: 46px; height: 46px; border-radius: 999px; display:grid; place-items:center;
+  background: rgba(10,18,24,.6); border: 1px solid rgba(255,255,255,.12);
+  backdrop-filter: blur(8px); box-shadow: 0 10px 30px rgba(0,0,0,.35);
 }
 .corner-logo img{ width: 30px; height: 30px; border-radius: 999px; display:block; }
 
-.spacer{ height: 20vh; }
+.spacer{ height: 24vh; }
 
+/* Mobile tweaks */
 @media (max-width: 560px){
   .brand-text{ display:none; }
   .content{ padding-top: calc(90px + var(--page-pad)); }
-}
-html, body {
-  height: 100%;
-  background: #000;      /* fallback if video can’t load */
-}
-
-.video-bg {
-  position: fixed;
-  inset: 0;
-  z-index: -2;           /* sits behind page content */
-  overflow: hidden;
-  pointer-events: none;  /* never catch clicks/scroll */
-}
-
-.video-bg video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;     /* fill without distortion */
-  object-position: center center;
-  transform: translateZ(0); /* tiny GPU nudge */
-}
-
-.video-bg .video-overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background:
-    radial-gradient(ellipse at 30% -10%, rgba(0,0,0,0.45), transparent 55%),
-    linear-gradient(to bottom, rgba(0,0,0,0.55), rgba(0,0,0,0.25) 35%, rgba(0,0,0,0.65) 100%);
-}
-
-/* make sure your main page content is above the video */
-main, header, .content, .container, .hero {
-  position: relative;
-  z-index: 0; /* ❌ this traps content */
 }
