@@ -10,6 +10,68 @@
   --scrim-bottom: rgba(0,0,0,.65);
 }
 
+/* --- Force scroll + correct stacking order --- */
+html { height: auto !important; min-height: 100% !important; }
+body {
+  height: auto !important;
+  min-height: 100vh !important;
+  overflow-y: auto !important;
+}
+
+/* Fullscreen video stays behind everything */
+.bg{
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  z-index: 0 !important;
+  background:#000;
+}
+
+/* Readability layers sit above video */
+.overlay, .tint{
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 1 !important;
+}
+
+/* Content above overlays */
+main{ position: relative !important; z-index: 3 !important; padding-bottom: 64px; }
+
+/* Header & corner watermark above everything */
+.site-header{ z-index: 6 !important; }
+.watermark{ z-index: 6 !important; }
+
+/* --- FORCE SCROLL & LAYOUT --- */
+html { height: auto !important; min-height: 100% !important; }
+body {
+  height: auto !important;
+  min-height: 100vh !important;
+  overflow-y: auto !important;
+}
+
+/* Give bottom room so the watermark doesn't trap the last section */
+main { position: relative; z-index: 3; padding-bottom: 64px; }
+
+/* --- TRUE FULLSCREEN BACKGROUND VIDEO --- */
+.bg{
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  z-index: 0 !important;       /* sits behind content */
+  background: #000;             /* no white flashes */
+}
+
+/* Readability layers stay fixed over the video */
+.overlay, .tint{
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 1 !important;
+}
+
 /* --- force page to scroll on GitHub Pages --- */
 html { height: auto !important; min-height: 100% !important; }
 body {
@@ -164,5 +226,5 @@ html, body {
 /* make sure your main page content is above the video */
 main, header, .content, .container, .hero {
   position: relative;
-  z-index: 0; /* >= 0 puts it above the -2 video layer */
+  z-index: 0; /* ❌ this traps content */
 }
