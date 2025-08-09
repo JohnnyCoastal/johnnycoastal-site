@@ -8,15 +8,24 @@
 </head>
 <body>
 
-<!-- Full-screen background video -->
-<div class="video-bg">
-  <video id="bg" class="bg"
-       src="assets/beach.mp4?v=1"
+<!-- replace your current <video> with this -->
+<video id="bg" class="bg"
+       src="assets/beach.mp4?v=3"
        playsinline muted autoplay loop preload="auto"></video>
 
-  <!-- soft darkening so text stays readable -->
-  <div class="video-overlay"></div>
-</div>
+<!-- keep your existing <script src="script.js"></script> at the bottom,
+     and add this 6-line inline helper right above it (or merge into script.js) -->
+<script>
+  (function () {
+    const v = document.getElementById('bg');
+    if (!v) return;
+    v.muted = true; v.setAttribute('playsinline','');
+    const go = () => v.play().catch(()=>{});
+    (document.readyState === 'complete') ? go() : window.addEventListener('load', go);
+    window.addEventListener('pointerdown', go, { once: true });
+  })();
+</script>
+
 
   <!-- Subtle overlay for text readability -->
   <div class="scrim"></div>

@@ -10,6 +10,15 @@
   --scrim-bottom: rgba(0,0,0,.65);
 }
 
+/* --- force page to scroll on GitHub Pages --- */
+html { height: auto !important; min-height: 100% !important; }
+body {
+  height: auto !important;
+  min-height: 100vh !important;
+  overflow-y: auto !important;
+}
+main { padding-bottom: 56px; } /* room for fixed watermark */
+
 /* --- ensure the page can scroll on Pages --- */
 html, body {
   min-height: 100%;
