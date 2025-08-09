@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Johnny Coastal</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- Full-screen background video -->
+<div class="video-bg">
+  <video id="bgvideo"
+         playsinline
+         autoplay
+         muted
+         loop
+         preload="metadata"
+         poster="assets/logo-round.png">
+    <source src="assets/beach.mp4?v=3" type="video/mp4">
+  </video>
+  <!-- soft darkening so text stays readable -->
+  <div class="video-overlay"></div>
+</div>
+
+  <!-- Subtle overlay for text readability -->
+  <div class="scrim"></div>
+
+  <!-- Compact brand badge (top-left) -->
+  <a class="brand-badge" href="/" aria-label="Johnny Coastal home">
+    <img src="assets/logo-round.png" alt="" class="brand-icon" />
+    <span class="brand-text">Johnny Coastal</span>
+  </a>
+
+  <main class="content">
+    <header class="hero">
+      <h1>Johnny Coastal</h1>
+      <p class="tagline">Coastal Vibes. Good Music. Good Times. 💀🌊</p>
+    </header>
+
+    <section class="block">
+      <h2>Music</h2>
+      <p>New drops, live mixes, and oceanside soundscapes.</p>
+      <div class="buttons">
+        <a class="btn" href="https://youtube.com" target="_blank" rel="noopener">YouTube</a>
+        <a class="btn" href="https://open.spotify.com" target="_blank" rel="noopener">Spotify</a>
+        <a class="btn" href="https://music.apple.com" target="_blank" rel="noopener">Apple Music</a>
+        <a class="btn" href="https://www.iheart.com/" target="_blank" rel="noopener">iHeartRadio</a>
+      </div>
+    </section>
+
+    <div class="spacer"></div>
+  </main>
+
+  <!-- Round logo bottom-right -->
+  <a class="corner-logo" href="/" aria-label="Johnny Coastal">
+    <img src="assets/logo-round.png" alt="" />
+  </a>
+
+</body>
+</html>
